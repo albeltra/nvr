@@ -3,18 +3,18 @@ FROM python:3.10.0-alpine
 RUN apk update \
     && apk add bash tzdata ffmpeg \
     && rm -rf /var/cache/apk/* \
-    && mkdir -p /usr/data/recordings \
-    && mkdir -p /usr/data/scripts
+    && mkdir -p /recordings \
+    && mkdir -p /scripts
 
-COPY ./scripts/* /usr/data/scripts/
+COPY ./scripts/* /scripts/
 
-RUN chmod -R +x /usr/data/scripts
+RUN chmod -R +x /scripts
 
 COPY ./docker-entrypoint.sh /
 
 RUN chmod +x /docker-entrypoint.sh
 
-WORKDIR /usr/data/scripts
+WORKDIR /scripts
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
