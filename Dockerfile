@@ -1,8 +1,8 @@
 FROM python:3.10-alpine
 
-RUN apt update \
-    && apt upgrade -y \
-    && apt install -y tzdata ffmpeg python3 \
+RUN apk update \
+    && apk upgrade \
+    && apk install tzdata ffmpeg python3 \
     && mkdir -p /recordings 
 
 COPY scripts/ /scripts/
