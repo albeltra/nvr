@@ -1,11 +1,9 @@
-FROM ubuntu:focal
+FROM python:3.10-alpine
 
 RUN apt update \
     && apt upgrade -y \
-    && apt install -y tzdata ffmpeg python3
-
-RUN mkdir -p /recordings \
-    && mkdir -p /scripts
+    && apt install -y tzdata ffmpeg python3 \
+    && mkdir -p /recordings 
 
 COPY scripts/ /scripts/
 
@@ -18,4 +16,3 @@ RUN chmod +x /docker-entrypoint.sh
 WORKDIR /scripts
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-
