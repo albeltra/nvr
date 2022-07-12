@@ -3,7 +3,7 @@ FROM python:3.10.0-alpine
 RUN apk update \
     && apk add bash tzdata ffmpeg \
     && rm -rf /var/cache/apk/* \
-    && mkdir -p /usr/data/recordings
+    && mkdir -p /usr/data/recordings \
     && mkdir -p /usr/data/scripts
 
 ENV HOUSEKEEP_ENABLED=true \
