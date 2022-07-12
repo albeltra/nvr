@@ -1,12 +1,12 @@
 FROM python:3.10.0-alpine
 
-USER nobody
 RUN apk update \
     && apk add bash tzdata ffmpeg \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /recordings \
     && mkdir -p /scripts
 
+USER nobody
 COPY ./scripts/* /scripts/
 
 RUN chmod -R +x /scripts
