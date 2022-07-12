@@ -6,7 +6,7 @@ RUN apk update \
     && mkdir -p /usr/data/recordings \
     && mkdir -p /usr/data/scripts
 
-COPY ./scripts/ /usr/data/scripts/
+COPY ./scripts/* /usr/data/scripts/
 
 RUN chmod -R +x /usr/data/scripts
 

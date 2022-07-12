@@ -17,8 +17,6 @@ segment = int(environ.get('VIDEO_SEGMENT_TIME', 30))
 extension = '.' + environ.get('VIDEO_FORMAT', 'mkv')
 base = environ.get("RECORDING_DIR", '/recordings')
 
-print(os.path.dirname(os.path.realpath(__file__)))
-
 with open('streams.txt') as file:
     lines = file.readlines()
     lines = [line.rstrip().split(';') for line in lines]
