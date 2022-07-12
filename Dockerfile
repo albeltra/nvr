@@ -2,7 +2,7 @@ FROM python:3.10-alpine
 
 RUN apk update \
     && apk upgrade \
-    && apk install tzdata ffmpeg python3 \
+    && apk add tzdata ffmpeg python3 \
     && mkdir -p /recordings 
 
 COPY scripts/ /scripts/
