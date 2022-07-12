@@ -1,10 +1,9 @@
-FROM python:3.10.0-alpine
+FROM ubuntu:focal
 
-RUN apk update \
-    && apk add bash tzdata ffmpeg \
-    && rm -rf /var/cache/apk/* \
+RUN apt update \
+    && apt upgrade -y;
+    && apt install tzdata ffmpeg \
 
-USER nobody
 RUN mkdir -p /recordings \
     && mkdir -p /scripts
 
