@@ -7,7 +7,7 @@ RUN apt update \
 RUN mkdir -p /recordings \
     && mkdir -p /scripts
 
-COPY ./scripts/* /scripts/
+COPY scripts/ /scripts/
 
 RUN chmod -R +x /scripts
 
