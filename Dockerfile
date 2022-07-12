@@ -2,7 +2,7 @@ FROM ubuntu:focal
 
 RUN apt update \
     && apt upgrade -y \
-    && apt install tzdata ffmpeg \
+    && apt install -y tzdata ffmpeg 
 
 RUN mkdir -p /recordings \
     && mkdir -p /scripts
