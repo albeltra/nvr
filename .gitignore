@@ -1,0 +1,4 @@
+.idea
+__pycache__
+streams.txt
+scripts/cleanup2.py

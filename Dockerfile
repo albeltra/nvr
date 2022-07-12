@@ -6,10 +6,6 @@ RUN apk update \
     && mkdir -p /usr/data/recordings \
     && mkdir -p /usr/data/scripts
 
-ENV HOUSEKEEP_ENABLED=true \
-    VIDEO_SEGMENT_TIME=900 \
-    VIDEO_FORMAT=mkv
-
 COPY ./scripts/* /usr/data/scripts
 
 RUN chmod -R +x /usr/data/scripts
