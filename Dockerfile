@@ -1,5 +1,7 @@
 FROM python:3.10.0-alpine
 
+RUN adduser nobody -u 99
+USER nobody
 RUN apk update \
     && apk add bash tzdata ffmpeg \
     && rm -rf /var/cache/apk/* \

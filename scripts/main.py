@@ -15,9 +15,9 @@ max_size = float(environ.get('MAX_SIZE', 1))
 housekeep_enabled = environ.get('T', True)
 segment = int(environ.get('VIDEO_SEGMENT_TIME', 30))
 extension = '.' + environ.get('VIDEO_FORMAT', 'mkv')
-base = environ.get("RECORDING_DIR", '/usr/data/recordings')
+base = environ.get("RECORDING_DIR", '/recordings')
 
-with open('streams.txt') as file:
+with open('/streams/streams.txt') as file:
     lines = file.readlines()
     lines = [line.rstrip().split(';') for line in lines]
 folders = [str(Path(base) / line[1]) for line in lines]
