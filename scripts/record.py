@@ -10,11 +10,11 @@ from difflib import ndiff
 from math import floor
 
 parser = argparse.ArgumentParser(description='Description of your program')
-parser.add_argument('-url', help='Description for foo argument', required=True)
-parser.add_argument('-name', help='Description for bar argument', required=True)
-parser.add_argument('-base', help='Description for bar argument', required=True)
-parser.add_argument('-segment', help='Description for bar argument', required=True)
-parser.add_argument('-extension', help='Description for bar argument', required=True)
+parser.add_argument('-url', help='Stream url rtsp', required=True)
+parser.add_argument('-name', help='Name of stream. Used to make folders and file names', required=True)
+parser.add_argument('-base', help='Base directory to store recordings', required=True)
+parser.add_argument('-segment', help='Segment time for ffmpeg', required=True)
+parser.add_argument('-extension', help='File extension for streams', required=True)
 args = vars(parser.parse_args())
 
 base = Path(args['base'])
@@ -22,23 +22,23 @@ url = args['url']
 extension = args['extension']
 directory = base / args['name']
 
-class process:
-    def kill(self):
-        return
-    def poll(self):
-        return None
-
-
 proc = process()
 segment = int(args['segment'])
 now = datetime.now()
+
 name = args['name'] + now.replace(minute = int(segment * floor(now.minute / segment)), second=0, microsecond=0).strftime(" %Y-%m-%d %H-%M")
 
-run(["python3", "cleanup.py", '-directory', directory, '-name', name, '-extension', extension])
+# run(["python3", "cleanup.py", '-directory', directory, '-name', name, '-extension', extension])
 
 if not os.path.isdir(str(directory)):
     os.makedirs(str(directory))
 now = datetime.now()
+date = now.strftime(" %Y-%m-%d")
+directory = base / args['name'] / date
+
+if not os.path.isdir(str(directory)):
+    os.makedirs(str(directory))
+
 name = args['name'] + now.replace(minute = int(segment * floor(now.minute / segment)), second=0, microsecond=0).strftime(" %Y-%m-%d %H-%M")
 t = int(segment * (floor(now.minute / segment) + 1) * 60) - int((now.minute * 60) + now.second)
 
@@ -77,5 +77,4 @@ else:
 
 def exit_handler(p=proc):
     p.kill()
-
 atexit.register(exit_handler)
