@@ -14,15 +14,18 @@ directory = Path(args['directory'])
 extension = args['extension']
 name = args['name']
 
-cleanup = glob.glob(str(directory / f'*-0{extension}'))
+cleanup = [x for x in glob.glob(str(directory / f'*/*{extension}')) if len(x) == len(f'{directory / name}{extension}')]
 if f'{directory / name}{extension}' in cleanup:
     cleanup.remove(f'{directory / name}{extension}')
 
 for file in cleanup:
-    paths = sorted(glob.glob(file.replace('-0.', '-0*.')))
-    if len(paths) > 1 and not run(["mv", f"{file}", f"{file.replace('-0.', '-00.')}"]).returncode:
-        join_paths = sorted(glob.glob(file.replace('-0.', '-0*.')))
-        if not run(["ffmpeg", "-i", f"concat:{'|'.join(join_paths)}", "-c", "copy", f"{file}"]).returncode:
-            run(["rm"] + [x for x in glob.glob(file.replace('-0.', '-0*.')) if x != file])
+    end = file[-(len(extension) + 1)]
+    paths = sorted(glob.glob(file.replace(end + extension, end + '*' + extension)))
+    if len(paths) > 1 and not run(["mv", f"{file}", f"{file.replace(end + extension, end + '0' + extension)}"]).returncode:
+        join_paths = sorted(glob.glob(file.replace(end + extension, end + '*' + extension)))
+        if not run(["ffmpeg", "-i",
+                    f"concat:{'|'.join(join_paths)}",
+                    "-c", "copy", f"{file}"]).returncode:
+            run(["rm"] + [x for x in glob.glob(file.replace(end + extension, end + '*' + extension)) if x != file])
         else:
             run(["rm"] + join_paths)
