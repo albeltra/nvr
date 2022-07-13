@@ -3,9 +3,10 @@ FROM python:3.10-alpine
 RUN apk update \
     && apk upgrade \
     && apk add tzdata ffmpeg python3 \
-    && mkdir -p /recordings 
+    && mkdir -p /recordings \
+    && mkdir -p /scripts
 
-COPY scripts/ /scripts/
+COPY ./scripts/ /scripts/
 
 RUN chmod -R +x /scripts
 
